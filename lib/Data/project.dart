@@ -1,8 +1,8 @@
 // lib/Data/project_data.dart
 
 class ProjectPost {
-  final String userName;
-  final String userProfileImage;
+  final String userName; // User's name
+  final String userProfileImage; // User's profile image URL
   final String description;
   final List<String> mediaUrls; // Can be image or video URLs
   final List<String> mediaTypes; // 'image' or 'video'

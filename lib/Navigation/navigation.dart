@@ -95,7 +95,7 @@ class _DashboardScreenState extends State<Navigationbar> {
           ),
       ],
     );
-  }
+  } //updated
 
 }
 

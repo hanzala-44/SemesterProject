@@ -9,7 +9,7 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
-
+//map
   List<Map<String, String>> onboardingData = [
     {
       "image": "assets/images/onboarding1.jpg",

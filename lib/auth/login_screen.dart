@@ -37,7 +37,7 @@ class LoginScreen extends StatelessWidget {
                 Image.asset('assets/images/logo.png', width: 80), // Heapware logo
                 SizedBox(height: 30),
 
-                // Glassmorphic Container
+                // Container
                 Container(
                   width: 350,
                   padding: EdgeInsets.all(20),

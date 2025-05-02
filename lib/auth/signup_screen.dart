@@ -24,6 +24,7 @@ class SignupScreenState extends State<SignupScreen> {
       return;
     }
 
+
     FocusScope.of(context).unfocus();
 
     // Clear fields
