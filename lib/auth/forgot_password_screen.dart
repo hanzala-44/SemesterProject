@@ -1,123 +1,144 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'otp_verification_screen.dart';
+import './otp_verification_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   @override
-  _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
-  void _showConfirmationDialog() {
-    showDialog(
-      context: context,
-      barrierDismissible: false, // Prevent dismissing manually
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.email, size: 50, color: Colors.blue),
-              SizedBox(height: 10),
-              Text(
-                "Check your email",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 5),
-              Text(
-                "We have sent password recovery instructions to your email.",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.grey),
-              ),
-            ],
-          ),
-        );
-      },
+  Future<void> forget() async {
+    String email = _emailController.text.trim();
+
+    if (email.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please enter your email')),
+      );
+      return;
+    }
+
+    FocusScope.of(context).unfocus();
+    _emailController.clear();
+
+    // Navigate to VerificationPage
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VerificationPage(email: email),
+      ),
     );
 
-    // Navigate to OTP screen after 5 seconds
-    Future.delayed(Duration(seconds: 5), () {
-      Navigator.pop(context); // Close the alert dialog
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => OTPVerificationScreen()),
-      );
-    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Password reset link sent')),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+      backgroundColor: Colors.black,
+      body: Stack(
+        children: [
+          // Background Image
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/background.jpg'),
+                fit: BoxFit.cover,
               ),
-              SizedBox(height: 10),
-              Center(
-                child: Column(
-                  children: [
-                    Text(
-                      "Forgot password",
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      "Enter your email account to reset your password",
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 30),
-
-              // Email Input Field
-              TextField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  hintText: "Enter your email",
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-
-              // Reset Password Button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: _showConfirmationDialog,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    padding: EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: Text(
-                    "Reset Password",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+
+          // Dark overlay
+          Container(
+            color: Colors.black.withOpacity(0.8),
+          ),
+
+          // Main content
+          Align(
+            alignment: Alignment.center,
+            child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset('assets/images/logo.png', width: 80),
+                  SizedBox(height: 30),
+                  Container(
+                    width: 350,
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Colors.greenAccent.withOpacity(0.7)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          blurRadius: 15,
+                          spreadRadius: 3,
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          "Forgot Password",
+                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
+                        SizedBox(height: 5),
+                        Text(
+                          "Enter your email to reset password",
+                          style: TextStyle(color: Colors.white70),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(height: 20),
+                        _buildTextField(Icons.email, "Email"),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: forget,
+                          child: Text(
+                            "Send Reset Link",
+                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.tealAccent,
+                            minimumSize: Size(double.infinity, 45),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text("Back to Login", style: TextStyle(color: Colors.tealAccent)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTextField(IconData icon, String hintText) {
+    return TextField(
+      controller: _emailController,
+      style: TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        prefixIcon: Icon(icon, color: Colors.white70),
+        filled: true,
+        fillColor: Colors.white.withOpacity(0.1),
+        hintText: hintText,
+        hintStyle: TextStyle(color: Colors.white70),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
   }

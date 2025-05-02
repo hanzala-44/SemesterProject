@@ -140,7 +140,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       height: 10,
                       width: _currentPage == index ? 25 : 10,
                       decoration: BoxDecoration(
-                        color: _currentPage == index ? Colors.greenAccent : Colors.white54,
+                        color: _currentPage == index ? Colors.tealAccent : Colors.white54,
                         borderRadius: BorderRadius.circular(5),
                       ),
                     ),
@@ -158,7 +158,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       child: Text(
                         "Skip",
                         style: TextStyle(
-                          color: Colors.greenAccent,
+                          color: Colors.tealAccent,
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                         ),
@@ -171,7 +171,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       child: Container(
                         padding: EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: Colors.greenAccent,
+                          color: Colors.tealAccent,
                           shape: BoxShape.circle,
                         ),
                         child: Icon(

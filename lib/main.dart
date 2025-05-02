@@ -13,9 +13,19 @@ class MyApp extends StatelessWidget {
       title: 'Heapware',
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.black,
-        primaryColor: Colors.green,
+        primaryColor: Colors.tealAccent,
         textTheme: TextTheme(
           bodyMedium: TextStyle(color: Colors.white), // Updated from bodyText2
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.tealAccent, width: 2.0),
+              borderRadius: BorderRadius.circular(10)
+
+          ),
+
         ),
       ),
 

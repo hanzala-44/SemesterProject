@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 import './login_screen.dart';
 
-class VerificationPage extends StatefulWidget {
+class VerificationPage1 extends StatefulWidget {
   final String email;
 
-  const VerificationPage({Key? key, required this.email}) : super(key: key);
+  const VerificationPage1({Key? key, required this.email}) : super(key: key);
 
   @override
-  _VerificationPageState createState() => _VerificationPageState();
+  _VerificationPage1State createState() => _VerificationPage1State();
 }
 
-class _VerificationPageState extends State<VerificationPage>
+class _VerificationPage1State extends State<VerificationPage1>
     with SingleTickerProviderStateMixin {
+  final TextEditingController _codeController = TextEditingController();
   late AnimationController _animationController;
   late Animation<Offset> _slideAnimation;
   double _opacity = 0.0;
@@ -43,6 +43,7 @@ class _VerificationPageState extends State<VerificationPage>
   @override
   void dispose() {
     _animationController.dispose();
+    _codeController.dispose();
     super.dispose();
   }
 
@@ -52,7 +53,7 @@ class _VerificationPageState extends State<VerificationPage>
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          // Background Image
+          // Background image
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -67,7 +68,6 @@ class _VerificationPageState extends State<VerificationPage>
             color: Colors.black.withOpacity(0.8),
           ),
 
-          // Content
           Align(
             alignment: Alignment.center,
             child: SingleChildScrollView(
@@ -79,7 +79,7 @@ class _VerificationPageState extends State<VerificationPage>
                   child: SlideTransition(
                     position: _slideAnimation,
                     child: Container(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(20),
@@ -101,22 +101,28 @@ class _VerificationPageState extends State<VerificationPage>
                             "Congratulations! 🎉",
                             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
                           ),
-                          const SizedBox(height: 30),
+
+
+                          const SizedBox(height: 10),
+
                           RichText(
                             textAlign: TextAlign.justify,
                             text: TextSpan(
                               style: const TextStyle(fontSize: 16, color: Colors.white70),
                               children: [
-                                const TextSpan(text: "✅ Forget password link sent to this email "),
+                                const TextSpan(text: "Your account has been successfully created! 🎊 A verification link has been sent to:(  "),
                                 TextSpan(
                                   text: widget.email,
                                   style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.tealAccent),
                                 ),
-                                const TextSpan(text: " 🔑🔒. 📩 Please use this link to reset your password 🔄✉️."),
+                                const TextSpan(text: "  )Please check your inbox 📥 and click the link to activate your account ✅."),
                               ],
                             ),
                           ),
-                          const SizedBox(height: 20),
+
+
+
+                          const SizedBox(height: 30),
                           ElevatedButton(
                             onPressed: () {
                               Navigator.pushReplacement(

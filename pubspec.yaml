@@ -12,6 +12,9 @@ dependencies:
     sdk: flutter
   flutter_spinkit:
   cupertino_icons:
+  curved_navigation_bar:
+  video_player:
+  image_picker:
 
 dev_dependencies:
   flutter_test:

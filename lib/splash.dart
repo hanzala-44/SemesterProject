@@ -12,7 +12,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 4), () {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (_) => OnboardingScreen()));
     });
@@ -34,19 +34,24 @@ class _SplashScreenState extends State<SplashScreen> {
             color: Colors.black.withOpacity(0.7),
           ),
           // Centered Content
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Heapware Logo
-              Image.asset(
-                'assets/images/logo.png', // Replace with actual logo
-                width: 150,
-              ),
-              SizedBox(height: 20),
-              // Loading Indicator
-              SpinKitFadingCircle(color: Colors.green, size: 50),
-            ],
-          ),
+          Center(
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                // Heapware Logo
+                Image.asset(
+                  'assets/images/logo.png',
+                  width: 80,
+                ),
+                // Centered Loading Indicator on top of the logo
+                SpinKitFadingCircle(
+                  color: Colors.black,
+                  size: 60, // Slightly smaller to fit over the logo
+                ),
+              ],
+            ),
+          )
+
         ],
       ),
     );

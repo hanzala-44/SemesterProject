@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './signup_screen.dart';
-import 'home_screen.dart'; // Import HomeScreen
+import './forgot_password_screen.dart';
+import '../Navigation/navigation.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -21,16 +22,19 @@ class LoginScreen extends StatelessWidget {
 
           // Dark overlay
           Container(
-            color: Colors.black.withOpacity(0.6),
+            color: Colors.black.withOpacity(0.8),
           ),
 
           // Main Content
-          Center(
+    Align(
+    alignment: Alignment.center,
+    child: SingleChildScrollView(
+    padding: EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Logo
-                Image.asset('assets/images/logo.png', width: 100), // Heapware logo
+                Image.asset('assets/images/logo.png', width: 80), // Heapware logo
                 SizedBox(height: 30),
 
                 // Glassmorphic Container
@@ -38,9 +42,9 @@ class LoginScreen extends StatelessWidget {
                   width: 350,
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.1),
+                    color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.white.withOpacity(0.2)),
+                    border: Border.all(color: Colors.greenAccent.withOpacity(0.7)),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.3),
@@ -65,10 +69,19 @@ class LoginScreen extends StatelessWidget {
                       _buildTextField(Icons.lock, "Password", isPassword: true),
 
                       SizedBox(height: 10),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text("Forgot Password?", style: TextStyle(color: Colors.tealAccent)),
+                      // Align(
+                      //   alignment: Alignment.centerRight,
+                      //   child: Text("Forgot Password?", style: TextStyle(color: Colors.tealAccent)),
+                      // ),
+                  Align(
+                      alignment: Alignment.centerRight,
+                     child:  GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (_) => ForgotPasswordScreen()));
+                        },
+                        child: Text("Forgot Password", style: TextStyle(color: Colors.tealAccent)),
                       ),
+                  ),
 
                       SizedBox(height: 15),
                       ElevatedButton(
@@ -76,10 +89,10 @@ class LoginScreen extends StatelessWidget {
                           // Navigate to Home Screen after login
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (_) => HomeScreen()),
+                            MaterialPageRoute(builder: (_) => Navigationbar()),
                           );
                         },
-                        child: Text("Login"),
+                        child: Text("Login",style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.tealAccent,
                           minimumSize: Size(double.infinity, 45),
@@ -94,20 +107,31 @@ class LoginScreen extends StatelessWidget {
                       _buildSocialIcons(),
 
                       SizedBox(height: 15),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_) => SignupScreen()));
-                        },
-                        child: Text("Create an account? Sign up", style: TextStyle(color: Colors.tealAccent)),
+                      Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                        Text("Create an account? ", style: TextStyle(color: Colors.white)),
+
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => SignupScreen()));
+                          },
+                          child: Text(" Sign up", style: TextStyle(color: Colors.tealAccent)),
+                        ),
+                        SizedBox(height: 10),
+                          ]
+                            ),
                       ),
-                      SizedBox(height: 10),
                     ],
                   ),
                 ),
               ],
             ),
           ),
+    ),
         ],
+
       ),
     );
   }
@@ -132,10 +156,9 @@ class LoginScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.asset("assets/images/google.png", width: 40),
-        SizedBox(width: 15),
+        SizedBox(width: 35),
         Image.asset("assets/images/facebook.png", width: 40),
-        SizedBox(width: 15),
-        Image.asset("assets/images/instagram.png", width: 40),
+
       ],
     );
   }
